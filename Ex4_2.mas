@@ -1,0 +1,71 @@
+ORG	100	/ Start the program at location 100 hexadecimal
+
+
+
+
+Load	Start	/ Initialize pointer to start of block
+UserI,  Input   /Get Users input
+Store	Ptr     /Store user input in Ptr
+Load    Ptr     /Load from Ptr
+Subt    ChPl	/Check for '+'
+Skipcond   400  /Skip the jump if AC = 0 
+Jump    UserI   /Jump to User Input
+
+Load    Ptr     /Put 'A'in AC
+Store   InVal   /Store value to be transformed
+Jns     TRUC    /Jump to TRUC 
+
+Load	ChLCe	/ Test with lower case 'e'
+	Store	InVal	/ Store in input variable
+	JNS	TRUC	/ Call subroutine - check return value in AC
+	StoreI	Ptr	/ Store result in memory
+
+	Halt		/ Done
+
+TRUC,	HEX	0
+	Load	InVal	/ Get input character
+	Subt	ChkLC	/ Check if input less than 'a' by subtracting ChkLC from input
+	Store   Hold
+	Skipcond	800	/ Skip if result is positive (letter is lower case)
+	Jump	IsUC	/ Character is upper case
+	
+IsLC,	Load	InVal	/ Character is lower case, restore value
+	Add	LC2UC	/ Add adjustment to make upper case
+	Jump	Done	/ Finished
+
+IsUC,	Load	InVal	/ Character is upper case, restore value
+Done,	JumpI	TRUC	/ Return with result in AC
+
+
+OCycle, LoadI  Ptr
+   Store       Ptr
+   Subt       ChPl
+   Skipcond   400
+   Jump       Cont
+   Halt
+
+Cont,   Load  Ptr
+   Output
+   Load       Ptr
+   Add       One
+   Store       Ptr
+   Jump       OCycle
+
+
+
+
+
+
+ChkLC,	DEC	96	/ Const value 'a'-1 to check if lower case
+ChPl,	DEC	43	/ Constant '+' char that marks end of input
+LC2UC,	DEC	40	/ Adjustment for lower case to upper case
+One,	DEC	1	/ Constant 1
+Start,	HEX	200	/ Constant address for start of character block
+
+ChUCE,	DEC	69	/ Upper case 'E' (just for start example)
+ChLCe,	DEC	101	/ Lower case 'e' (just for start example)
+
+
+InVal,	HEX	0	/ Reserved for TRUC subroutine input value
+Hold,   HEX     0       / Reserved for variable in subroutine
+Ptr,	HEX	0	/ Reserved for character pointer in main routine

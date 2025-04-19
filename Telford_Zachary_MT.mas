@@ -1,0 +1,33 @@
+/Zachary Telford zacht18@vt.edu
+
+	ORG		100  /initialize program
+
+	Load		Blk  /load mem block
+	Store		Ptr  /store into pointer
+	
+	Load		Num  /load hex value 0A5 
+	Store		Cnt  /store into count
+
+Loop,   Load		Cnt
+	StoreI		Ptr
+	Load		Ptr
+	Add		One
+	Store		Ptr
+	Load		Numb /load 0A5 then subtracted increment
+	Subt		Inc /subtract value to increment
+	Store		Numb		
+	Skipcond	800
+	Halt
+	Jump		Loop
+	
+
+
+/Data Constants
+
+One,	HEX		1  /constant one to increment for next mem location
+Blk,	HEX		150 /starting block for mem location 150
+Ptr,	HEX		0  /Pointer block 0
+Cnt,    HEX             0
+Num,    HEX             0A5 /Data constant to write in modified file
+Numb,   HEX		10 /hex for 16 to start at for skipcond
+Inc,    HEX             1 / increment for skipcond to stop memory writing

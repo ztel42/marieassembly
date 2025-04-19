@@ -1,0 +1,58 @@
+
+ORG	100	/ Start the program at location 100 hexadecimal
+
+Load	Start	/ Initialize pointer to start of block
+	Store	Ptr
+
+Loop,   Input         /Get Input
+	Subt    ChPl  /subtract the '+'
+	SkipCond 800  /AC will be 0 if the input is '+'
+	Jump End      /if AC = 0, end loop
+	Add  ChPl     /if not add + back
+	Store  InVal  /store value into InVal
+	Jns    TRUC   /call the TRUC subroutine
+	Output        / output AC
+	Jump Loop	      /repeat inputs
+
+End,    Halt          /ends the loop
+
+/TRUC subroutine to change UserI into uppercase and put into the AC
+
+TRUC,	HEX	0
+	Load	InVal	/ Get input character
+	Subt	ChkLC	/ Check if input less than 'a' by subtracting ChkLC from input
+	Skipcond	800	/ Skip if result is positive (letter is lower case)
+	Jump	IsUC	/ Character is upper case
+
+	
+IsLC,	Load	InVal	/ Character is lower case, restore value
+	Subt	LC2UC	/ This is the bug you need to subtract 32 not add 40
+	Jump	Done	/ Finished
+
+IsUC,	Load	InVal	/ Character is upper case, restore value
+Done,	JumpI	TRUC	/ Return with result in AC
+
+
+
+
+
+
+/-----
+/Constants (not changed by program)
+/-----
+
+
+ChkLC,	HEX	60	/ Const value 'a'-1 to check if lower case
+ChPl,	HEX	2B	/ Constant '+' char that marks end of input
+LC2UC,	DEC	32	/ Adjustment for lower case to upper case
+Start,	HEX	200	/ Constant address for start of character block
+
+/-----
+/Data (reserved and changed by program)
+/-----
+
+
+InVal,	HEX	0	/ Reserved for TRUC subroutine input value
+Ptr,	HEX	0	/ Reserved for character pointer in main routine
+
+

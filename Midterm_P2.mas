@@ -1,0 +1,30 @@
+/ *****
+/ ECE 5484 - Fall 2019
+/ Midterm Exam, Problem 2
+/ *****
+
+	ORG		100
+
+	Load		Blk
+	Store		Ptr
+	
+	Load		Num
+	Add		One
+	Store		Cnt
+
+Loop,	Load		Cnt
+	Subt		One
+	Store		Cnt
+	Skipcond	800
+	Halt
+	StoreI		Ptr
+	Load		Ptr
+	Add		One
+	Store		Ptr
+	Jump		Loop
+
+One,	HEX		1
+Blk,	HEX		150
+Ptr,	HEX		0
+Num,	HEX		0C
+Cnt,	HEX		0

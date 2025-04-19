@@ -1,0 +1,21 @@
+ -----------------
+ Symbol | Location
+ -------+---------
+ ChLCe  |   127
+ ChPl   |   122
+ ChUCE  |   126
+ ChkLC  |   121
+ Cont   |   11B
+ Done   |   114
+ Hold   |   129
+ InVal  |   128
+ IsLC   |   110
+ IsUC   |   113
+ LC2UC  |   123
+ OCycle |   115
+ One    |   124
+ Ptr    |   12A
+ Start  |   125
+ TRUC   |   10A
+ UserI  |   101
+

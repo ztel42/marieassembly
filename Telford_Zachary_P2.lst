@@ -1,0 +1,82 @@
+     Assembly listing for: Telford_Zachary_P2.mas
+                Assembled: Mon Oct 14 10:04:32 EDT 2019
+
+         |         ORG 100          / Start the program at location 100 hexadecimal
+         |                          
+100 111A |         LOAD Start       / Initialize pointer to start of block
+101 211C |         STORE Ptr         
+         |                          
+102 5000 |  UserI  INPUT            /Get user input
+103 4118 |         SUBT ChPl        /subtract the '+'
+104 8800 |         SKIPCOND 800     /AC will be 0 if the input is '+'
+105 910C |         JUMP End         /if AC = 0, then go to End
+106 3118 |         ADD ChPl         /else add '+' back 
+107 211B |         STORE InVal      /store value into InVal
+108 010D |         JNS TRUC         /call the TRUC subroutine
+109 E11C |         STOREI Ptr       /Store result into memory
+10A 6000 |         OUTPUT           /output PTR
+10B 9102 |         JUMP UserI       /repeat inputs until '+' in put in
+         |                          	
+10C 7000 |  End    HALT             /ends the loop and terminates the program
+         |                          
+         |                          /TRUC subroutine to change User Inputs into uppercase and put into the AC
+         |                          
+10D 0000 |  TRUC   HEX 0             
+10E 111B |         LOAD InVal       / Get input character
+10F 4117 |         SUBT ChkLC       / Check if input less than 'a' by subtracting ChkLC from input
+110 8800 |         SKIPCOND 800     / Skip if result is positive (letter is lower case)
+111 9115 |         JUMP IsUC        / Character is upper case
+         |                          
+         |                          	
+112 111B |  IsLC   LOAD InVal       / Character is lower case, restore value
+113 4119 |         SUBT LC2UC       / This is the bug it needs to subtract 32 not add 40
+114 9116 |         JUMP Done        / Finished
+         |                          
+115 111B |  IsUC   LOAD InVal       / Character is upper case, restore value
+116 C10D |  Done   JUMPI TRUC       / Return with result in AC
+         |                          
+         |                          
+         |                          
+         |                          
+         |                          
+         |                          
+         |                          /-----
+         |                          /Constants (not changed by program)
+         |                          /-----
+         |                          
+         |                          
+117 0060 |  ChkLC  DEC 96           / Const value 'a'-1 to check if lower case
+118 002B |  ChPl   DEC 43           / Constant '+' char that marks end of input
+119 0020 |  LC2UC  DEC 32           / Adjustment for lower case to upper case
+11A 0200 |  Start  HEX 200          / Constant address for start of character block
+         |                          
+         |                          /-----
+         |                          /Data (reserved and changed by program)
+         |                          /-----
+         |                          
+         |                          
+11B 0000 |  InVal  HEX 0            / Reserved for TRUC subroutine input value
+11C 0000 |  Ptr    HEX 0            / Reserved for character pointer in main routine
+         |                          
+
+Assembly successful.
+
+         SYMBOL TABLE
+         --------------------------------------------------
+          Symbol | Defined | References 
+         --------+---------+-------------------------------
+          ChPl   |   118   | 103, 106
+          ChkLC  |   117   | 10F
+          Done   |   116   | 114
+          End    |   10C   | 105
+          InVal  |   11B   | 107, 10E, 112, 115
+          IsLC   |   112   | 
+          IsUC   |   115   | 111
+          LC2UC  |   119   | 113
+          Ptr    |   11C   | 101, 109
+          Start  |   11A   | 100
+          TRUC   |   10D   | 108, 116
+          UserI  |   102   | 10B
+         --------------------------------------------------
+
+

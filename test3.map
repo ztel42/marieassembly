@@ -1,0 +1,16 @@
+ -----------------
+ Symbol | Location
+ -------+---------
+ ChPl   |   117
+ ChkLC  |   116
+ Done   |   115
+ End    |   10B
+ InVal  |   11A
+ IsLC   |   111
+ IsUC   |   114
+ LC2UC  |   118
+ Loop   |   102
+ Ptr    |   11B
+ Start  |   119
+ TRUC   |   10C
+
